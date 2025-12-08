@@ -1,22 +1,30 @@
 {
-  "name": "bfx-wrk-base",
-  "version": "0.0.1",
+  "name": "@bitfinex/bfx-wrk-base",
+  "version": "1.0.0",
   "private": false,
-  "description": "Bitfinex Worker",
+  "description": "Bitfinex base worker",
+  "scripts": {
+    "lint": "standard",
+    "lint:fix": "standard --fix"
+  },
   "author": {
     "name": "prdn",
     "email": "paolo@bitfinex.com"
   },
   "main": "base.js",
   "keywords": [
-    "bitfinex"
+    "bitfinex",
+    "base worker"
   ],
   "dependencies": {
     "async": "^3.2.1",
     "lodash": "^4.17.21"
   },
-  "engine": {
-    "node": ">=8.0"
+  "devDependencies": {
+    "standard": "^17.1.2"
+  },
+  "engines": {
+    "node": ">=16.0"
   },
   "license": "Apache-2.0",
   "repository": {
@@ -28,6 +36,10 @@
     {
       "name": "prdn",
       "email": "paolo@bitfinex.com"
+    },
+    {
+      "name": "vigan-abd",
+      "email": "vigan.abdurrahmani@bitfinex.com"
     }
   ]
 }

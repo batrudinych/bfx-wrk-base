@@ -61,7 +61,7 @@ class Base extends EventEmitter {
   }
 
   cleanFacName (name) {
-    return name.replace(/[a-z-]*facs-/, '')
+    return name.replace(/[@a-z-/]*facs-/, '')
   }
 
   facility (type, name, ns, opts) {
@@ -181,7 +181,7 @@ class Base extends EventEmitter {
         `${this.ctx.root}/status/${this.prefix}.json`, 'UTF-8')
       )
       _.extend(this.status, _.isObject(status) ? status : {})
-    } catch (e) {}
+    } catch (e) { }
   }
 
   saveStatus () {
@@ -204,7 +204,7 @@ class Base extends EventEmitter {
     }
   }
 
-  start (cb = () => {}) {
+  start (cb = () => { }) {
     const aseries = []
 
     aseries.push(next => {

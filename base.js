@@ -71,9 +71,13 @@ class Base extends EventEmitter {
     name = this.cleanFacName(name)
 
     try {
-      Fmod = require(path)
-    } catch (e) {
-      console.log(e)
+      Fmod = require(`@bitfinex/${path}`)
+    } catch (_) {
+      try {
+        Fmod = require(path)
+      } catch (e) {
+        console.log(e)
+      }
     }
 
     if (!Fmod) {

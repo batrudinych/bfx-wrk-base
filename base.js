@@ -60,16 +60,8 @@ class Base extends EventEmitter {
     const baseJsPath = join(dirname, `${c}.js`)
     const envJsPath = join(dirname, `${fprefix}.${c}.js`)
 
-    let confPath = baseJsonPath
-    if (fprefix && fs.existsSync(envJsonPath)) {
-      confPath = envJsonPath
-    } else if (fs.existsSync(baseJsonPath)) {
-      confPath = baseJsonPath
-    } else if (fprefix && fs.existsSync(envJsPath)) {
-      confPath = envJsPath
-    } else if (fs.existsSync(baseJsPath)) {
-      confPath = baseJsPath
-    }
+    const candidates = [baseJsonPath, envJsonPath, baseJsPath, envJsPath]
+    const confPath = candidates.find(p => fs.existsSync(p)) || baseJsonPath
 
     _.merge(this.conf, this.getConf(this.ctx.env, group, confPath))
 

@@ -29,7 +29,13 @@ class Base extends EventEmitter {
   }
 
   getConf (env, type, path) {
-    const conf = JSON.parse(fs.readFileSync(path, 'utf8'))
+    let conf
+    if (path.endsWith('.js')) {
+      conf = require(path)
+    } else {
+      conf = JSON.parse(fs.readFileSync(path, 'utf8'))
+    }
+
     if (!_.isObject(conf)) {
       return {}
     }
@@ -49,11 +55,13 @@ class Base extends EventEmitter {
     const fprefix = this.ctx.env
     const dirname = join(this.ctx.root, 'config')
 
-    let confPath = join(dirname, `${c}.json`)
-    const envConfPath = join(dirname, `${fprefix}.${c}.json`)
-    if (fprefix && fs.existsSync(envConfPath)) {
-      confPath = envConfPath
-    }
+    const envJsonPath = join(dirname, `${fprefix}.${c}.json`)
+    const baseJsonPath = join(dirname, `${c}.json`)
+    const envJsPath = join(dirname, `${fprefix}.${c}.js`)
+    const baseJsPath = join(dirname, `${c}.js`)
+
+    const candidates = [envJsonPath, baseJsonPath, envJsPath, baseJsPath]
+    const confPath = candidates.find(p => fs.existsSync(p)) || baseJsonPath
 
     _.merge(this.conf, this.getConf(this.ctx.env, group, confPath))
 

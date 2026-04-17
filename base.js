@@ -55,12 +55,12 @@ class Base extends EventEmitter {
     const fprefix = this.ctx.env
     const dirname = join(this.ctx.root, 'config')
 
-    const baseJsonPath = join(dirname, `${c}.json`)
     const envJsonPath = join(dirname, `${fprefix}.${c}.json`)
-    const baseJsPath = join(dirname, `${c}.js`)
+    const baseJsonPath = join(dirname, `${c}.json`)
     const envJsPath = join(dirname, `${fprefix}.${c}.js`)
+    const baseJsPath = join(dirname, `${c}.js`)
 
-    const candidates = [baseJsonPath, envJsonPath, baseJsPath, envJsPath]
+    const candidates = [envJsonPath, baseJsonPath, envJsPath, baseJsPath]
     const confPath = candidates.find(p => fs.existsSync(p)) || baseJsonPath
 
     _.merge(this.conf, this.getConf(this.ctx.env, group, confPath))
